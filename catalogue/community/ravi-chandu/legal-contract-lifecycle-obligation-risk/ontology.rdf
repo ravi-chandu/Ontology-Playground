@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+    xml:base="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:ont="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/">
+
+    <owl:Ontology rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/">
+        <rdfs:label>Legal Contract Lifecycle &amp; Obligation Risk</rdfs:label>
+        <rdfs:comment>Models the full contract lifecycle — parties, obligations, risk clauses, milestones, amendments, and breaches — enabling AI to identify which active contracts are exposed to a supply disruption via force majeure clauses and which counterparties must be notified within SLA.</rdfs:comment>
+    </owl:Ontology>
+
+    <!-- ===================== -->
+    <!-- Entity Types (Classes) -->
+    <!-- ===================== -->
+
+    <owl:Class rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Contract">
+        <rdfs:label>Contract</rdfs:label>
+        <rdfs:comment>A legally binding agreement between two or more parties</rdfs:comment>
+        <ont:icon>📄</ont:icon>
+        <ont:color>#0078D4</ont:color>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Party">
+        <rdfs:label>Party</rdfs:label>
+        <rdfs:comment>A legal entity — company or individual — that is a signatory to a contract</rdfs:comment>
+        <ont:icon>🤝</ont:icon>
+        <ont:color>#107C10</ont:color>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Obligation">
+        <rdfs:label>Obligation</rdfs:label>
+        <rdfs:comment>A specific duty or deliverable that one party must fulfil under the contract</rdfs:comment>
+        <ont:icon>⚖️</ont:icon>
+        <ont:color>#5C2D91</ont:color>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/RiskClause">
+        <rdfs:label>RiskClause</rdfs:label>
+        <rdfs:comment>A contractual provision that allocates risk or modifies obligations under specified conditions</rdfs:comment>
+        <ont:icon>⚠️</ont:icon>
+        <ont:color>#CA5010</ont:color>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Amendment">
+        <rdfs:label>Amendment</rdfs:label>
+        <rdfs:comment>A formal modification to an existing contract that changes its terms</rdfs:comment>
+        <ont:icon>📝</ont:icon>
+        <ont:color>#038387</ont:color>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Milestone">
+        <rdfs:label>Milestone</rdfs:label>
+        <rdfs:comment>A key deadline or deliverable checkpoint that tracks progress on an obligation</rdfs:comment>
+        <ont:icon>📅</ont:icon>
+        <ont:color>#D13438</ont:color>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Breach">
+        <rdfs:label>Breach</rdfs:label>
+        <rdfs:comment>A formal record of an obligation failure — triggers penalties and cure procedures</rdfs:comment>
+        <ont:icon>🚨</ont:icon>
+        <ont:color>#FFB900</ont:color>
+    </owl:Class>
+
+    <!-- ================ -->
+    <!-- Data Properties -->
+    <!-- ================ -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/contract_contractId">
+        <rdfs:label>contractId</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Contract"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Unique contract identifier</rdfs:comment>
+        <ont:isIdentifier rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</ont:isIdentifier>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/contract_title">
+        <rdfs:label>title</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Contract"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Short name of the contract</rdfs:comment>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/contract_status">
+        <rdfs:label>status</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Contract"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Current contract lifecycle status</rdfs:comment>
+        <ont:enumValues>Draft,Active,Suspended,Expired,Terminated</ont:enumValues>
+        <ont:propertyType>enum</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/contract_totalValue">
+        <rdfs:label>totalValue</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Contract"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:comment>Total monetary value of the contract</rdfs:comment>
+        <ont:unit>USD</ont:unit>
+        <ont:propertyType>decimal</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/contract_governingLaw">
+        <rdfs:label>governingLaw</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Contract"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Jurisdiction whose law governs disputes</rdfs:comment>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/contract_effectiveDate">
+        <rdfs:label>effectiveDate</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Contract"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+        <rdfs:comment>Date the contract becomes enforceable</rdfs:comment>
+        <ont:propertyType>date</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/contract_expiryDate">
+        <rdfs:label>expiryDate</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Contract"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+        <rdfs:comment>Date the contract expires if not renewed</rdfs:comment>
+        <ont:propertyType>date</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/party_partyId">
+        <rdfs:label>partyId</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Party"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Unique party identifier</rdfs:comment>
+        <ont:isIdentifier rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</ont:isIdentifier>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/party_legalName">
+        <rdfs:label>legalName</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Party"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Registered legal name of the entity</rdfs:comment>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/party_role">
+        <rdfs:label>role</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Party"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Contractual role of this party</rdfs:comment>
+        <ont:enumValues>Buyer,Seller,Supplier,Licensee,Licensor,Service Provider</ont:enumValues>
+        <ont:propertyType>enum</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/party_country">
+        <rdfs:label>country</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Party"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Country of incorporation or residence</rdfs:comment>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/party_creditRating">
+        <rdfs:label>creditRating</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Party"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Credit rating (e.g. AA, BBB+)</rdfs:comment>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/party_notificationEmail">
+        <rdfs:label>notificationEmail</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Party"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Primary contact email for legal notices</rdfs:comment>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/obligation_obligationId">
+        <rdfs:label>obligationId</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Obligation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Unique obligation identifier</rdfs:comment>
+        <ont:isIdentifier rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</ont:isIdentifier>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/obligation_description">
+        <rdfs:label>description</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Obligation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Plain-language description of the duty</rdfs:comment>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/obligation_type">
+        <rdfs:label>type</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Obligation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Category of obligation</rdfs:comment>
+        <ont:enumValues>Delivery,Payment,Compliance,Reporting,Non-Disclosure,Service Level</ont:enumValues>
+        <ont:propertyType>enum</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/obligation_status">
+        <rdfs:label>status</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Obligation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Current fulfilment status</rdfs:comment>
+        <ont:enumValues>Active,At Risk,Breached,Fulfilled,Waived</ont:enumValues>
+        <ont:propertyType>enum</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/obligation_dueDate">
+        <rdfs:label>dueDate</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Obligation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+        <rdfs:comment>Date by which the obligation must be met</rdfs:comment>
+        <ont:propertyType>date</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/obligation_penaltyPerDay">
+        <rdfs:label>penaltyPerDay</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Obligation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:comment>Daily financial penalty for non-fulfilment</rdfs:comment>
+        <ont:unit>USD</ont:unit>
+        <ont:propertyType>decimal</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/riskClause_clauseId">
+        <rdfs:label>clauseId</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/RiskClause"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Unique clause identifier</rdfs:comment>
+        <ont:isIdentifier rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</ont:isIdentifier>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/riskClause_clauseType">
+        <rdfs:label>clauseType</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/RiskClause"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Type of risk provision</rdfs:comment>
+        <ont:enumValues>Force Majeure,SLA Penalty,Termination for Cause,Limitation of Liability,Indemnity,Change of Control</ont:enumValues>
+        <ont:propertyType>enum</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/riskClause_triggerCondition">
+        <rdfs:label>triggerCondition</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/RiskClause"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Condition that activates the clause</rdfs:comment>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/riskClause_noticeRequiredDays">
+        <rdfs:label>noticeRequiredDays</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/RiskClause"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment>Days notice required to invoke the clause</rdfs:comment>
+        <ont:unit>days</ont:unit>
+        <ont:propertyType>integer</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/riskClause_activated">
+        <rdfs:label>activated</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/RiskClause"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment>Whether the clause has been formally invoked</rdfs:comment>
+        <ont:propertyType>boolean</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/amendment_amendmentId">
+        <rdfs:label>amendmentId</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Amendment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Unique amendment identifier</rdfs:comment>
+        <ont:isIdentifier rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</ont:isIdentifier>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/amendment_effectiveDate">
+        <rdfs:label>effectiveDate</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Amendment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+        <rdfs:comment>Date the amendment takes effect</rdfs:comment>
+        <ont:propertyType>date</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/amendment_reason">
+        <rdfs:label>reason</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Amendment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Business reason driving the change</rdfs:comment>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/amendment_approvedBy">
+        <rdfs:label>approvedBy</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Amendment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Signatory who approved the amendment</rdfs:comment>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/amendment_impactSummary">
+        <rdfs:label>impactSummary</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Amendment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Summary of what changed in practical terms</rdfs:comment>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/milestone_milestoneId">
+        <rdfs:label>milestoneId</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Milestone"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Unique milestone identifier</rdfs:comment>
+        <ont:isIdentifier rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</ont:isIdentifier>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/milestone_deliverable">
+        <rdfs:label>deliverable</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Milestone"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Description of what must be delivered</rdfs:comment>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/milestone_dueDate">
+        <rdfs:label>dueDate</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Milestone"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+        <rdfs:comment>Date the milestone must be reached</rdfs:comment>
+        <ont:propertyType>date</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/milestone_completionStatus">
+        <rdfs:label>completionStatus</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Milestone"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Current status of this milestone</rdfs:comment>
+        <ont:enumValues>Pending,On Track,At Risk,Overdue,Completed</ont:enumValues>
+        <ont:propertyType>enum</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/milestone_daysUntilDue">
+        <rdfs:label>daysUntilDue</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Milestone"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment>Calculated days remaining until due date</rdfs:comment>
+        <ont:unit>days</ont:unit>
+        <ont:propertyType>integer</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/breach_breachId">
+        <rdfs:label>breachId</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Breach"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Unique breach identifier</rdfs:comment>
+        <ont:isIdentifier rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</ont:isIdentifier>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/breach_detectedDate">
+        <rdfs:label>detectedDate</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Breach"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+        <rdfs:comment>Date the breach was identified</rdfs:comment>
+        <ont:propertyType>date</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/breach_description">
+        <rdfs:label>description</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Breach"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Summary of how the obligation was breached</rdfs:comment>
+        <ont:propertyType>string</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/breach_penaltyAmount">
+        <rdfs:label>penaltyAmount</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Breach"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:comment>Total financial penalty accrued</rdfs:comment>
+        <ont:unit>USD</ont:unit>
+        <ont:propertyType>decimal</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/breach_cureDeadlineDays">
+        <rdfs:label>cureDeadlineDays</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Breach"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment>Days remaining to remedy the breach before escalation</rdfs:comment>
+        <ont:unit>days</ont:unit>
+        <ont:propertyType>integer</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/breach_resolved">
+        <rdfs:label>resolved</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Breach"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment>Whether the breach has been cured or settled</rdfs:comment>
+        <ont:propertyType>boolean</ont:propertyType>
+    </owl:DatatypeProperty>
+
+    <!-- ================== -->
+    <!-- Object Properties -->
+    <!-- ================== -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/party_signs_contract">
+        <rdfs:label>signsContract</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Party"/>
+        <rdfs:range rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Contract"/>
+        <rdfs:comment>A party is legally bound as a signatory to one or more contracts</rdfs:comment>
+        <ont:cardinality>many-to-many</ont:cardinality>
+        <ont:fromEntityId>party</ont:fromEntityId>
+        <ont:toEntityId>contract</ont:toEntityId>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/contract_contains_obligation">
+        <rdfs:label>contains</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Contract"/>
+        <rdfs:range rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Obligation"/>
+        <rdfs:comment>A contract contains specific obligations each party must fulfil</rdfs:comment>
+        <ont:cardinality>one-to-many</ont:cardinality>
+        <ont:fromEntityId>contract</ont:fromEntityId>
+        <ont:toEntityId>obligation</ont:toEntityId>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/contract_includes_riskclause">
+        <rdfs:label>includes</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Contract"/>
+        <rdfs:range rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/RiskClause"/>
+        <rdfs:comment>A contract includes risk-allocation clauses that govern exceptional circumstances</rdfs:comment>
+        <ont:cardinality>one-to-many</ont:cardinality>
+        <ont:fromEntityId>contract</ont:fromEntityId>
+        <ont:toEntityId>riskClause</ont:toEntityId>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/obligation_trackedby_milestone">
+        <rdfs:label>trackedBy</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Obligation"/>
+        <rdfs:range rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Milestone"/>
+        <rdfs:comment>An obligation is tracked through one or more milestone checkpoints</rdfs:comment>
+        <ont:cardinality>one-to-many</ont:cardinality>
+        <ont:fromEntityId>obligation</ont:fromEntityId>
+        <ont:toEntityId>milestone</ont:toEntityId>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/contract_amended_by">
+        <rdfs:label>amendedBy</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Contract"/>
+        <rdfs:range rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Amendment"/>
+        <rdfs:comment>A contract is formally modified by one or more amendments over its lifecycle</rdfs:comment>
+        <ont:cardinality>one-to-many</ont:cardinality>
+        <ont:fromEntityId>contract</ont:fromEntityId>
+        <ont:toEntityId>amendment</ont:toEntityId>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/breach_violates_obligation">
+        <rdfs:label>violates</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Breach"/>
+        <rdfs:range rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Obligation"/>
+        <rdfs:comment>A breach event records the failure to meet a specific obligation</rdfs:comment>
+        <ont:cardinality>many-to-one</ont:cardinality>
+        <ont:fromEntityId>breach</ont:fromEntityId>
+        <ont:toEntityId>obligation</ont:toEntityId>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/riskclause_exempts_obligation">
+        <rdfs:label>exempts</rdfs:label>
+        <rdfs:domain rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/RiskClause"/>
+        <rdfs:range rdf:resource="http://example.org/ontology/legal-contract-lifecycle-obligation-risk/Obligation"/>
+        <rdfs:comment>A risk clause (e.g. force majeure) can suspend or exempt specific obligations when activated</rdfs:comment>
+        <ont:cardinality>many-to-many</ont:cardinality>
+        <ont:fromEntityId>riskClause</ont:fromEntityId>
+        <ont:toEntityId>obligation</ont:toEntityId>
+    </owl:ObjectProperty>
+
+</rdf:RDF>

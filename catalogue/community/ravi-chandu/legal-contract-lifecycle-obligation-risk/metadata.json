@@ -1,0 +1,8 @@
+{
+  "name": "Legal Contract Lifecycle & Obligation Risk",
+  "description": "Models the full contract lifecycle — parties, obligations, risk clauses, milestones, amendments, and breaches — enabling AI to identify which active contracts are exposed to supply disruptions via force majeure clauses and which counterparties must be notified within SLA.",
+  "icon": "📄",
+  "category": "general",
+  "tags": ["legal", "contracts", "obligations", "risk", "compliance", "force-majeure", "fabric-iq"],
+  "author": "ravi-chandu"
+}
